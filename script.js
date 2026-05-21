@@ -1,14 +1,35 @@
-// script.js
+let streak = localStorage.getItem("streak") || 0
+let lastStudied = localStorage.getItem("lastStudied")
 
-let streak = 0
+document.getElementById("streak").innerText =
+  "🔥 Streak: " + streak
 
-function studyVerse(){
+function studyVerse() {
 
+  const today = new Date().toDateString()
+
+  // already studied today
+  if (lastStudied === today) {
+
+    document.getElementById("message").innerText =
+      "You already studied today."
+
+    return
+  }
+
+  // increase streak
   streak++
 
+  // save data
+  localStorage.setItem("streak", streak)
+  localStorage.setItem("lastStudied", today)
+
+  lastStudied = today
+
+  // update screen
   document.getElementById("streak").innerText =
     "🔥 Streak: " + streak
 
   document.getElementById("message").innerText =
-    "Good job. Come back tomorrow."
+    "Daily study completed."
 }
